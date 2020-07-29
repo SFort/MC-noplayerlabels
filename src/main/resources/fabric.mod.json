@@ -1,0 +1,27 @@
+{
+  "schemaVersion": 1,
+  "id": "noplayerlabels",
+  "version": "${version}",
+
+  "name": "No Player Labels",
+  "description": "Disables displaying names above players",
+  "authors": [
+    "SFort"
+  ],
+  "contact": {
+    "sources": "https://github.com/SFort/MC-noplayerlabels"
+  },
+
+  "license": "MIT",
+
+  "environment": "*",
+  "mixins": [
+    "noplayerlabels.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": "*",
+    "fabric": "*",
+    "minecraft": "*"
+  }
+}
