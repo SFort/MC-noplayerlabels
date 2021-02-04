@@ -1,7 +1,8 @@
-package sf.ssf.sfort.mixin;
+package tf.ssf.sfort.mixin;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.EntityRenderer;
@@ -10,15 +11,17 @@ import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.text.Text;
+import net.minecraft.util.math.BlockPos;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Environment(EnvType.CLIENT)
-@Mixin(PlayerEntityRenderer.class)
-public class PlayerRenderer {
+@Mixin(value = PlayerEntityRenderer.class, priority = 4100)
+public class Distance {
 	@Inject(method = "renderLabelIfPresent", at = @At("HEAD"), cancellable = true)
 	public void render(AbstractClientPlayerEntity abstractClientPlayerEntity, Text text, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo info) {
-		info.cancel();
+		if (MinecraftClient.getInstance().player != null && !MinecraftClient.getInstance().player.getBlockPos().isWithinDistance(abstractClientPlayerEntity.getPos(), Config.distance))
+			info.cancel();
 	}
 }

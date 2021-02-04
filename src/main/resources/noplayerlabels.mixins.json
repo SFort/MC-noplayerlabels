@@ -1,12 +1,15 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "sf.ssf.sfort.mixin",
+  "package": "tf.ssf.sfort.mixin",
   "compatibilityLevel": "JAVA_8",
+  "plugin": "tf.ssf.sfort.mixin.Config",
   "mixins": [
   ],
   "client": [
-    "PlayerRenderer"
+    "AlwaysOff",
+    "Distance",
+    "Wall"
   ],
   "injectors": {
     "defaultRequire": 1
