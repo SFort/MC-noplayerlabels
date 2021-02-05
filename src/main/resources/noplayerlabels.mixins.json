@@ -9,7 +9,8 @@
   "client": [
     "AlwaysOff",
     "Distance",
-    "Wall"
+    "Wall",
+    "Team"
   ],
   "injectors": {
     "defaultRequire": 1

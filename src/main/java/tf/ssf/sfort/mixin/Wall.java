@@ -4,6 +4,7 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
@@ -18,7 +19,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public class Wall {
 	@Inject(method = "renderLabelIfPresent", at = @At("HEAD"), cancellable = true)
 	public void render(AbstractClientPlayerEntity abstractClientPlayerEntity, Text text, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo info) {
-		if (MinecraftClient.getInstance().player != null && MinecraftClient.getInstance().player.canSee(abstractClientPlayerEntity) ^ Config.wall)
+		ClientPlayerEntity p= MinecraftClient.getInstance().player;
+		if ( p != null && p.canSee(abstractClientPlayerEntity) ^ Config.wall)
 			info.cancel();
 	}
 }

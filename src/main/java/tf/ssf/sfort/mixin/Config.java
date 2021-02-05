@@ -19,6 +19,7 @@ public class Config implements IMixinConfigPlugin {
     public static Logger LOGGER = LogManager.getLogger();
     public static double distance = 0.0;
     public static Boolean wall = null;
+    public static Boolean team = null;
     public static boolean sneak = false;
     @Override
     public void onLoad(String mixinPackage) {
@@ -32,7 +33,8 @@ public class Config implements IMixinConfigPlugin {
             List<String> la = Files.readAllLines(confFile.toPath());
             List<String> defaultDesc = Arrays.asList(
                     "^-Show when nearby  [0.0] 0.0 - ...",
-                    "^-Hide when behind Walls [off] on | invert | off"
+                    "^-Hide when behind Walls [off] on | invert | off",
+                    "^-Show when on the same team [off] on | invert | off"
             );
             String[] ls = la.toArray(new String[Math.max(la.size(), defaultDesc.size() * 2)|1]);
             int hash = Arrays.hashCode(ls);
@@ -44,15 +46,15 @@ public class Config implements IMixinConfigPlugin {
             ls[0] = String.valueOf(distance);
 
             try{
-                if(ls[2].contains("on"))wall=true;
-                if(ls[2].contains("invert"))wall=false;
-                if(ls[2].contains("off"))wall=null;
+                boolean bl1=ls[2].contains("on");
+                wall = bl1||ls[2].contains("invert")? bl1:null;
             }catch (Exception ignore){}
-            if(wall == null){
-                ls[2]= "off";
-            }else{
-                ls[2] = wall?"on":"invert";
-            }
+            ls[2]= wall==null?"off": wall?"on":"invert";
+            try{
+                boolean bl1=ls[4].contains("on");
+                team = bl1||ls[4].contains("invert")? bl1:null;
+            }catch (Exception ignore){}
+            ls[4]= team==null?"off": team?"on":"invert";
             
             if(hash != Arrays.hashCode(ls))
                 Files.write(confFile.toPath(), Arrays.asList(ls));
@@ -72,6 +74,7 @@ public class Config implements IMixinConfigPlugin {
         switch (mixinClassName){
             case "tf.ssf.sfort.mixin.Distance":{return distance != 0.0;}
             case "tf.ssf.sfort.mixin.Wall":{return wall != null;}
+            case "tf.ssf.sfort.mixin.Team":{return team != null;}
             default:{return false;}
         }
     }
