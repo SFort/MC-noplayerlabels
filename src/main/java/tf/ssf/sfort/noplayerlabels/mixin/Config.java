@@ -1,4 +1,4 @@
-package tf.ssf.sfort.mixin;
+package tf.ssf.sfort.noplayerlabels.mixin;
 
 import net.fabricmc.loader.api.FabricLoader;
 import org.apache.logging.log4j.Level;
@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Set;
 
 public class Config implements IMixinConfigPlugin {
+    public static final String mod = "tf.ssf.sfort.noplayerlabels";
     public static Logger LOGGER = LogManager.getLogger();
     public static double distance = 0.0;
     public static Boolean wall = null;
@@ -58,9 +59,9 @@ public class Config implements IMixinConfigPlugin {
             
             if(hash != Arrays.hashCode(ls))
                 Files.write(confFile.toPath(), Arrays.asList(ls));
-            LOGGER.log(Level.INFO,"tf.ssf.sfort.noplayerlabels successfully loaded config file");
+            LOGGER.log(Level.INFO,mod+" successfully loaded config file");
         } catch(Exception e) {
-            LOGGER.log(Level.ERROR,"tf.ssf.sfort.noplayerlabels failed to load config file, using defaults\n"+e);
+            LOGGER.log(Level.ERROR,mod+" failed to load config file, using defaults\n"+e);
         }
     }
 
@@ -68,13 +69,13 @@ public class Config implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        if(wall==null && distance == 0.0 && mixinClassName.equals("tf.ssf.sfort.mixin.AlwaysOff")){
+        if(wall==null && distance == 0.0 && mixinClassName.equals(mod+".mixin.AlwaysOff")){
             return true;
         }
         switch (mixinClassName){
-            case "tf.ssf.sfort.mixin.Distance":{return distance != 0.0;}
-            case "tf.ssf.sfort.mixin.Wall":{return wall != null;}
-            case "tf.ssf.sfort.mixin.Team":{return team != null;}
+            case mod+".mixin.Distance":{return distance != 0.0;}
+            case mod+".mixin.Wall":{return wall != null;}
+            case mod+".mixin.Team":{return team != null;}
             default:{return false;}
         }
     }

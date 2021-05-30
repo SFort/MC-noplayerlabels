@@ -1,9 +1,9 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "tf.ssf.sfort.mixin",
+  "package": "tf.ssf.sfort.noplayerlabels.mixin",
   "compatibilityLevel": "JAVA_8",
-  "plugin": "tf.ssf.sfort.mixin.Config",
+  "plugin": "tf.ssf.sfort.noplayerlabels.mixin.Config",
   "mixins": [
   ],
   "client": [
