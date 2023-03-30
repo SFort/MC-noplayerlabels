@@ -19,7 +19,8 @@ public class Distance {
 	@Inject(method = "renderLabelIfPresent", at = @At("HEAD"), cancellable = true)
 	public void render(AbstractClientPlayerEntity abstractClientPlayerEntity, Text text, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo info) {
 		ClientPlayerEntity p= MinecraftClient.getInstance().player;
-		if ( p != null && p.getBlockPos().isWithinDistance(abstractClientPlayerEntity.getPos(), Config.distance) ^ Config.wall)
+		if (p == null) return;
+		if (p.getBlockPos().isWithinDistance(abstractClientPlayerEntity.getPos(), Config.distance))
 			info.cancel();
 	}
 }
