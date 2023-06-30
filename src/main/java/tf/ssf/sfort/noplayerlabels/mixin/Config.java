@@ -32,6 +32,7 @@ public class Config implements IMixinConfigPlugin {
 		SFIni defIni = new SFIni();
 		defIni.load(String.join("\n", new String[]{
 				"; Show name tag when nearby. [0.0] 0.0+",
+				";  Making the value negative will make it visible when far away",
 				"visibleDistance=0.0",
 				"; Hide name tag when behind walls. [off] on | invert | off",
 				"hideBehindWall=off",

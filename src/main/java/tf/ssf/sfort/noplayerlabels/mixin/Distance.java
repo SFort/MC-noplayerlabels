@@ -20,7 +20,7 @@ public class Distance {
 	public void render(AbstractClientPlayerEntity abstractClientPlayerEntity, Text text, MatrixStack matrixStack, VertexConsumerProvider vertexConsumerProvider, int i, CallbackInfo info) {
 		ClientPlayerEntity p= MinecraftClient.getInstance().player;
 		if (p == null) return;
-		if (p.getBlockPos().isWithinDistance(abstractClientPlayerEntity.getPos(), Config.distance))
+		if (p.getBlockPos().isWithinDistance(abstractClientPlayerEntity.getPos(), Math.abs(Config.distance)) ^ Config.distance > 0)
 			info.cancel();
 	}
 }
